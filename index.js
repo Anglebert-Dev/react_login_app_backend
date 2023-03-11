@@ -1,7 +1,9 @@
 const cookieSession = require('cookie-session')
 const express = require('express')
 const passport = require('passport')
+require('./src/middlewares/passport')
 const cors = require('cors')
+const authRoutes = require('./src/routes/auth')
 require('dotenv').config()
 
 
@@ -23,7 +25,8 @@ app.use(cors({
     credentials:true
 }))
 
-
+// routes
+app.use('/auth',authRoutes)
 
 const PORT = process.env.PORT || 2000
 app.listen(PORT , ()=>{
