@@ -1,4 +1,5 @@
 const cookieSession = require('cookie-session')
+const session = require('express-session')
 const express = require('express')
 const passport = require('passport')
 require('./src/middlewares/passport')
@@ -12,10 +13,17 @@ const app = express()
 app.use(cookieSession(
     {
         name:"session",
-        keys:["maka"],
-        maxAge:process.env.COOKIE_AGE
+        keys:[process.env.COOKIES_SEC],
+        maxAge:24*60*60*100
     }
 ))
+
+// app.use(session({
+//     secret: 'somethingsecretgoeshere',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true }
+//  }));
 
 app.use(passport.initialize())
 app.use(passport.session())
